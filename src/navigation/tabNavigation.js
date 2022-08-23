@@ -12,35 +12,54 @@ const TabNavigation = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({route}) => ({
+        initialRouteName="HomePage"
+        screenOptions={() => ({
           headerShown: false,
           tabBarInactiveTintColor: 'gray',
           tabBarActiveTintColor: '#DDBEC3',
-
-          tabBarIcon: ({color, size}) => {
-            let iconName;
-
-            if (route.name === 'HomePage') {
-              iconName = 'pokeball';
-            }
-            if (route.name === 'FavoritePage') {
-              iconName = 'cards-heart-outline';
-            }
-            if (route.name === 'ComparePage') {
-              iconName = 'compare';
-            }
-            return (
-              <MaterialCommunityIcons
-                name={iconName}
-                size={size}
-                color={color}
-              />
-            );
-          },
         })}>
-        <Tab.Screen name={'FavoritePage'} component={FavoritePage} />
-        <Tab.Screen name={'HomePage'} component={HomePage} />
-        <Tab.Screen name={'ComparePage'} component={ComparePage} />
+        <Tab.Screen
+          name={'FavoritePage'}
+          component={FavoritePage}
+          options={{
+            tabBarLabel: 'Favorite',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons
+                name="cards-heart-outline"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name={'HomePage'}
+          component={HomePage}
+          options={{
+            tabBarLabel: 'Poke Deck',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons
+                name="pokeball"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name={'ComparePage'}
+          component={ComparePage}
+          options={{
+            tabBarLabel: 'Compare',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons
+                name="compare"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
