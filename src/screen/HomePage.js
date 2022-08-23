@@ -21,6 +21,41 @@ const HomePage = () => {
               health="15"
               shield="15"
             />
+            <PokeProfile
+              name="Ditto"
+              damage="15"
+              speed="15"
+              health="15"
+              shield="15"
+            />
+            <PokeProfile
+              name="Ditto"
+              damage="15"
+              speed="15"
+              health="15"
+              shield="15"
+            />
+            <PokeProfile
+              name="Ditto"
+              damage="15"
+              speed="15"
+              health="15"
+              shield="15"
+            />
+            <PokeProfile
+              name="Ditto"
+              damage="15"
+              speed="15"
+              health="15"
+              shield="15"
+            />
+            <PokeProfile
+              name="Ditto"
+              damage="15"
+              speed="15"
+              health="15"
+              shield="15"
+            />
           </View>
         </View>
       </ScrollView>
@@ -28,7 +63,7 @@ const HomePage = () => {
   );
 };
 const styles = StyleSheet.create({
-  ViewText: {},
+  ViewText: {backgroundColor: '#DDBEC3'},
   Text: {
     textAlign: 'center',
     fontSize: 36,
