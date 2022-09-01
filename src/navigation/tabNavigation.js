@@ -19,13 +19,13 @@ const TabNavigation = () => {
           tabBarActiveTintColor: '#DDBEC3',
         })}>
         <Tab.Screen
-          name={'FavoritePage'}
-          component={FavoritePage}
+          name={'ComparePage'}
+          component={ComparePage}
           options={{
-            tabBarLabel: 'Favorite',
+            tabBarLabel: 'Compare',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="cards-heart-outline"
+                name="compare-horizontal"
                 color={color}
                 size={size}
               />
@@ -47,13 +47,13 @@ const TabNavigation = () => {
           }}
         />
         <Tab.Screen
-          name={'ComparePage'}
-          component={ComparePage}
+          name={'FavoritePage'}
+          component={FavoritePage}
           options={{
-            tabBarLabel: 'Compare',
+            tabBarLabel: 'Favorite',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="compare"
+                name="cards-heart-outline"
                 color={color}
                 size={size}
               />

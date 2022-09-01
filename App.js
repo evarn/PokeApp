@@ -4,11 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import TabNavigation from './src/navigation/tabNavigation';
 
 const App = () => {
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <TabNavigation />
-    </SafeAreaView>
-  );
+  return <TabNavigation />;
 };
 
 export default App;

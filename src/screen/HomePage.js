@@ -1,76 +1,96 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PokeProfile from '../components/PokeProfile.js';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
-
+import PokemonFlatList from '../components/PokemonFlatList';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from 'react-native';
+import axios from 'axios';
+import IconPoke from '../../assets/pokedex.png';
+import {getPokemonInfo} from '../api/getPokemon';
 const HomePage = () => {
   const [pokeDate, setPokeDate] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [nextUrl, setNextUrl] = useState(undefined);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const [results, next] = await getPokemonInfo(nextUrl);
+      setPokeDate(prev => [...prev, ...results]);
+      setNextUrl(next);
+      console.warn('pokeDate', pokeDate);
+    } catch (e) {
+      throw e;
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // let URL = 'https://pokeapi.co/api/v2/pokemon/';
+  // let count = 1;
+  // const getPokemonId = async id => {
+  //   setIsLoading(true);
+  //   const url = `${URL}${id}`;
+  //   const res = await axios.get(url);
+
+  //   setPokeDate(state => {
+  //     state = [...state, res.data];
+  //     state.sort((a, b) => a.id - b.id);
+
+  //     return state;
+  //   });
+  //   setIsLoading(false);
+  // };
+
+  // const fetchPokemons = () => {
+  //   for (count; count <= 20; count++) {
+  //     getPokemonId(count);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchPokemons();
+  // }, []);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.ViewText}>
-          <View>
-            <Text style={styles.Text}>Poke Deck:</Text>
-          </View>
-          <View style={styles.PokeProfile}>
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-            <PokeProfile
-              name="Ditto"
-              damage="15"
-              speed="15"
-              health="15"
-              shield="15"
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.viewText}>
+      <View>
+        <Image source={IconPoke} />
+        {/* <PokeProfile data={pokeDate} loading={isLoading} /> */}
+      </View>
+      <View>
+        <PokemonFlatList
+          pokemons={pokeDate}
+          loadMore={fetchData}
+          isNext={nextUrl}
+        />
+      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  ViewText: {backgroundColor: '#DDBEC3'},
-  Text: {
+  viewText: {
+    backgroundColor: '#DDBEC3',
+    flex: 1,
+    alignItems: 'center',
+  },
+
+
+  text: {
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
     color: 'black',
   },
-  PokeProfile: {
+  pokeProfile: {
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',

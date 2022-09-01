@@ -1,69 +1,71 @@
 import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
-import ImagePokemon from '../../assets/ditto.png';
+import HeaderDex from './HeaderDex';
 import HP from '../../assets/health-normal.png';
 import Damage from '../../assets/damage.png';
 import Shield from '../../assets/shield.png';
 import Speed from '../../assets/sprint.png';
 
-const PokeProfile = props => {
-  let namePoke = 'Ditto';
-  let damagePoke = 10;
-  let speedPoke = 10;
-  let HpPoke = 10;
-  let shieldPoke = 10;
-  namePoke = props.name;
-  damagePoke = props.damage;
-  speedPoke = props.speed;
-  HpPoke = props.health;
-  shieldPoke = props.shield;
+const PokeProfile = ({data, isLoading}) => {
+  if (data !== undefined) {
+    return (
+      <>
+        {isLoading ? (
+          <Text> Loading... </Text>
+        ) : (
+          data.map(item => {
+            return (
+              <View style={styles.container} key={item.id}>
+                <HeaderDex />
+                <View style={{alignItems: 'center'}}>
+                  <View style={styles.imgContainer}>
+                    <Image
+                      source={{
+                        uri: item.sprites.other['official-artwork']
+                          .front_default,
+                      }}
+                      style={styles.image}
+                    />
+                  </View>
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.type}>Compare</Text>
-        <Text style={styles.like}>Like</Text>
-      </View>
+                  <View style={styles.nameContainer}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Text style={{color: 'black', fontSize: 14}}>
+                      #{item.id.toString().padStart(3, '0')}
+                    </Text>
+                  </View>
+                </View>
 
-      <View style={{alignItems: 'center'}}>
-        <View style={styles.imgContainer}>
-          <Image
-            source={ImagePokemon}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
+                <View style={styles.line} />
 
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{namePoke}</Text>
-        </View>
-      </View>
+                <View style={styles.statsContainer}>
+                  <View style={styles.statContainer}>
+                    <Image source={HP} style={styles.imgStats} />
+                    <Text style={styles.stats}>{item.stats[0].base_stat}</Text>
+                  </View>
 
-      <View style={styles.line} />
+                  <View style={styles.statContainer}>
+                    <Image source={Damage} style={styles.imgStats} />
+                    <Text style={styles.stats}>{item.stats[1].base_stat}</Text>
+                  </View>
 
-      <View style={styles.statsContainer}>
-        <View style={styles.statContainer}>
-          <Image source={HP} style={styles.imgStats} />
-          <Text style={styles.stats}>{HpPoke}</Text>
-        </View>
+                  <View style={styles.statContainer}>
+                    <Image source={Shield} style={styles.imgStats} />
+                    <Text style={styles.stats}>{item.stats[2].base_stat}</Text>
+                  </View>
 
-        <View style={styles.statContainer}>
-          <Image source={Damage} style={styles.imgStats} />
-          <Text style={styles.stats}>{damagePoke}</Text>
-        </View>
-
-        <View style={styles.statContainer}>
-          <Image source={Shield} style={styles.imgStats} />
-          <Text style={styles.stats}>{shieldPoke}</Text>
-        </View>
-
-        <View style={styles.statContainer}>
-          <Image source={Speed} style={styles.imgStats} />
-          <Text style={styles.stats}>{speedPoke}</Text>
-        </View>
-      </View>
-    </View>
-  );
+                  <View style={styles.statContainer}>
+                    <Image source={Speed} style={styles.imgStats} />
+                    <Text style={styles.stats}>{item.stats[5].base_stat}</Text>
+                  </View>
+                </View>
+              </View>
+            );
+          })
+        )}
+      </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -72,21 +74,18 @@ const styles = StyleSheet.create({
     padding: 3,
     backgroundColor: '#E6E6E6',
     borderRadius: 20,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   image: {
-    maxWidth: 120,
-    maxHeight: 120,
+    width: 120,
+    height: 120,
   },
   name: {
     color: 'black',
     fontSize: 18,
+    textTransform: 'capitalize',
   },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-  },
-
   type: {
     paddingHorizontal: 10,
     color: 'black',
