@@ -5,10 +5,14 @@ import TabNavigation from './src/navigation/tabNavigation';
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <TabNavigation />
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 export default App;
