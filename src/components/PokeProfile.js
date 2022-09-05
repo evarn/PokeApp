@@ -1,78 +1,69 @@
 import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
 import HeaderDex from './HeaderDex';
+import StatsPoke from './StatsPoke';
 import HP from '../../assets/health-normal.png';
 import Damage from '../../assets/damage.png';
 import Shield from '../../assets/shield.png';
 import Speed from '../../assets/sprint.png';
 
-const PokeProfile = ({data, isLoading}) => {
-  if (data !== undefined) {
-    return (
-      <>
-        {isLoading ? (
-          <Text> Loading... </Text>
-        ) : (
-          data.map(item => {
-            return (
-              <View style={styles.container} key={item.id}>
-                <HeaderDex />
-                <View style={{alignItems: 'center'}}>
-                  <View style={styles.imgContainer}>
-                    <Image
-                      source={{
-                        uri: item.sprites.other['official-artwork']
-                          .front_default,
-                      }}
-                      style={styles.image}
-                    />
-                  </View>
+const typeColor = {
+  normal: '#A8A77A',
+  fire: '#EE8130',
+  water: '#6390F0',
+  electric: '#F7D02C',
+  grass: '#7AC74C',
+  ice: '#96D9D6',
+  fighting: '#C22E28',
+  poison: '#A33EA1',
+  ground: '#E2BF65',
+  flying: '#A98FF3',
+  psychic: '#F95587',
+  bug: '#A6B91A',
+  rock: '#B6A136',
+  ghost: '#735797',
+  dragon: '#6F35FC',
+  dark: '#705746',
+  steel: '#B7B7CE',
+  fairy: '#D685AD',
+};
 
-                  <View style={styles.nameContainer}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={{color: 'black', fontSize: 14}}>
-                      #{item.id.toString().padStart(3, '0')}
-                    </Text>
-                  </View>
-                </View>
+const PokeProfile = ({item}) => {
+  const getColorType = item => {
+    const backGroundColorByType = {
+      backgroundColor: typeColor[item.types[0].type.name],
+      ...styles.container,
+    };
+    return backGroundColorByType;
+  };
 
-                <View style={styles.line} />
+  return (
+    <View style={getColorType(item)} key={item.id}>
+      <HeaderDex />
+      <View style={{alignItems: 'center'}}>
+        <View style={styles.imgContainer}>
+          <Image source={{uri: item.image}} style={styles.image} />
+        </View>
 
-                <View style={styles.statsContainer}>
-                  <View style={styles.statContainer}>
-                    <Image source={HP} style={styles.imgStats} />
-                    <Text style={styles.stats}>{item.stats[0].base_stat}</Text>
-                  </View>
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={{color: 'black', fontSize: 14}}>
+            #{item.id.toString().padStart(3, '0')}
+          </Text>
+        </View>
+      </View>
 
-                  <View style={styles.statContainer}>
-                    <Image source={Damage} style={styles.imgStats} />
-                    <Text style={styles.stats}>{item.stats[1].base_stat}</Text>
-                  </View>
+      <View style={styles.line} />
 
-                  <View style={styles.statContainer}>
-                    <Image source={Shield} style={styles.imgStats} />
-                    <Text style={styles.stats}>{item.stats[2].base_stat}</Text>
-                  </View>
-
-                  <View style={styles.statContainer}>
-                    <Image source={Speed} style={styles.imgStats} />
-                    <Text style={styles.stats}>{item.stats[5].base_stat}</Text>
-                  </View>
-                </View>
-              </View>
-            );
-          })
-        )}
-      </>
-    );
-  }
+      <StatsPoke item={item} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     margin: 10,
     padding: 3,
-    backgroundColor: '#E6E6E6',
     borderRadius: 20,
     borderColor: 'black',
     borderWidth: 1,

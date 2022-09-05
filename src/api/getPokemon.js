@@ -38,22 +38,18 @@ export const getPokemonInfo = async (nextUrl = '') => {
 const formatedPokeData = pokeDetails => {
   const id = pokeDetails.id;
   const name = pokeDetails.name;
-  const stats = pokeDetails.stats.map(({base_stat}) => {
-    base_stat;
-  });
-  const abilities = pokeDetails.abilities.map(({ability}) => {
-    ability;
-  });
-  const types = pokeDetails.types.map(({type}) => {
-    type;
-  });
+  const stats = pokeDetails.stats;
+
+  const abilities = pokeDetails.abilities;
+  const types = pokeDetails.types;
+
   const image = pokeDetails.sprites.other['official-artwork'].front_default;
   return {
     id,
     name,
-    // stats,
-    // abilities,
-    //types,
+    stats,
+    abilities,
+    types,
     image,
   };
 };

@@ -34,37 +34,11 @@ const HomePage = () => {
     fetchData();
   }, []);
 
-  // let URL = 'https://pokeapi.co/api/v2/pokemon/';
-  // let count = 1;
-  // const getPokemonId = async id => {
-  //   setIsLoading(true);
-  //   const url = `${URL}${id}`;
-  //   const res = await axios.get(url);
-
-  //   setPokeDate(state => {
-  //     state = [...state, res.data];
-  //     state.sort((a, b) => a.id - b.id);
-
-  //     return state;
-  //   });
-  //   setIsLoading(false);
-  // };
-
-  // const fetchPokemons = () => {
-  //   for (count; count <= 20; count++) {
-  //     getPokemonId(count);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPokemons();
-  // }, []);
-
   return (
-    <View style={styles.viewText}>
-      <View>
-        <Image source={IconPoke} />
-        {/* <PokeProfile data={pokeDate} loading={isLoading} /> */}
+    <View style={styles.container}>
+      <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
+        {/* <Image source={IconPoke} /> */}
+        <Text style={styles.text}>Pokedex</Text>
       </View>
       <View>
         <PokemonFlatList
@@ -77,17 +51,17 @@ const HomePage = () => {
   );
 };
 const styles = StyleSheet.create({
-  viewText: {
+  container: {
     backgroundColor: '#DDBEC3',
     flex: 1,
     alignItems: 'center',
   },
 
-
   text: {
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
+    margin: 8,
     color: 'black',
   },
   pokeProfile: {

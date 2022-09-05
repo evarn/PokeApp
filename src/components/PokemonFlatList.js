@@ -8,23 +8,13 @@ import {
   Image,
 } from 'react-native';
 import PokemonCard from './PokemonCard';
+import PokeProfile from './PokeProfile';
 const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
   return (
     <View>
       <FlatList
         data={pokemons}
-        renderItem={({item}) => (
-          <View
-            style={{
-              backgroundColor: 'blue',
-              margin: 5,
-              alignItems: 'center',
-            }}>
-            <Text style={styles.text}>{item.name}</Text>
-            <Text style={styles.text}>{item.id}</Text>
-            <Image source={{uri: item.image}} style={styles.image} />
-          </View>
-        )}
+        renderItem={({item}) => <PokeProfile item={item} />}
         contentContainerStyle={styles.container}
         keyExtractor={item => {
           return item.id;
@@ -32,6 +22,16 @@ const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
         numColumns={2}
         onEndReached={isNext ? loadMore : null}
         onEndReachedThreshold={0.1}
+        showsVerticalScrollIndicator={false}
+        // ListFooterComponent={
+        //   isNext ? (
+        //     <ActivityIndicator
+        //       style={styles.spinner}
+        //       size="large"
+        //       color="#AEAEAE"
+        //     />
+        //   ) : null
+        // }
       />
     </View>
   );
