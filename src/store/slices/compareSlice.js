@@ -8,7 +8,6 @@ export const compareSlice = createSlice({
   reducers: {},
 });
 
-// Action creators are generated for each case reducer function
 export const {} = compareSlice.actions;
 
 export default compareSlice.reducer;

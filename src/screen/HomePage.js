@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PokeProfile from '../components/PokeProfile.js';
 import PokemonFlatList from '../components/PokemonFlatList';
 import {
   SafeAreaView,
@@ -9,30 +8,37 @@ import {
   View,
   Image,
 } from 'react-native';
-import axios from 'axios';
-import IconPoke from '../../assets/pokedex.png';
 import {getPokemonInfo} from '../api/getPokemon';
-const HomePage = () => {
-  const [pokeDate, setPokeDate] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [nextUrl, setNextUrl] = useState(undefined);
+import {useDispatch} from 'react-redux';
+import {fetchPokemons, loadMore} from '../store/actions/pokemonsActions';
+import {useSelector} from 'react-redux';
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const [results, next] = await getPokemonInfo(nextUrl);
-      setPokeDate(prev => [...prev, ...results]);
-      setNextUrl(next);
-      console.warn('pokeDate', pokeDate);
-    } catch (e) {
-      throw e;
-    }
-    setIsLoading(false);
-  };
+const HomePage = () => {
+  // const [pokeDate, setPokeDate] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  // const [nextUrl, setNextUrl] = useState(undefined);
+
+  // const fetchData = async () => {
+  //   try {
+  //     const [results, next] = await getPokemonInfo(nextUrl);
+  //     setPokeDate(prev => [...prev, ...results]);
+  //     setNextUrl(next);
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchPokemons());
   }, []);
+
+  const {loading, pokeData, nextUrl} = useSelector(state => state.poke);
 
   return (
     <View style={styles.container}>
@@ -40,11 +46,14 @@ const HomePage = () => {
         {/* <Image source={IconPoke} /> */}
         <Text style={styles.text}>Pokedex</Text>
       </View>
+
       <View>
+        {loading && <Text>loading...</Text>}
+
         <PokemonFlatList
-          pokemons={pokeDate}
-          loadMore={fetchData}
-          isNext={nextUrl}
+          pokemons={pokeData}
+          // loadMore={loadMore()}
+          // isNext={nextUrl}
         />
       </View>
     </View>

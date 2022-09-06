@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 import PokemonCard from './PokemonCard';
 import PokeProfile from './PokeProfile';
+import {useDispatch} from 'react-redux';
+
 const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
+  const dispatch = useDispatch;
   return (
     <View>
       <FlatList
@@ -20,13 +23,13 @@ const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
           return item.id;
         }}
         numColumns={2}
-        onEndReached={isNext ? loadMore : null}
+        onEndReached={isNext ? loadMore(isNext) : null}
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
         // ListFooterComponent={
         //   isNext ? (
         //     <ActivityIndicator
-        //       style={styles.spinner}
+        //       //style={styles.spinner}
         //       size="large"
         //       color="#AEAEAE"
         //     />

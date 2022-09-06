@@ -8,7 +8,6 @@ export const favoriteSlice = createSlice({
   reducers: {},
 });
 
-// Action creators are generated for each case reducer function
 export const {} = favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

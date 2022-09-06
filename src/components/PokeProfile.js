@@ -2,10 +2,6 @@ import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
 import HeaderDex from './HeaderDex';
 import StatsPoke from './StatsPoke';
-import HP from '../../assets/health-normal.png';
-import Damage from '../../assets/damage.png';
-import Shield from '../../assets/shield.png';
-import Speed from '../../assets/sprint.png';
 
 const typeColor = {
   normal: '#A8A77A',
