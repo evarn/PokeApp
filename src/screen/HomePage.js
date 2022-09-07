@@ -12,7 +12,7 @@ import {getPokemonInfo} from '../api/getPokemon';
 import {useDispatch} from 'react-redux';
 import {fetchPokemons, loadMore} from '../store/actions/pokemonsActions';
 import {useSelector} from 'react-redux';
-
+import {favoriteSlice} from '../store/slices/favoriteSlice';
 const HomePage = () => {
   // const [pokeDate, setPokeDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

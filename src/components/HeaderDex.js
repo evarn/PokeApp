@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Heart from '../../assets/heart.png';
 import Compare from '../../assets/arrow.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {favoriteSlice} from '../store/slices/favoriteSlice';
 
-const HeaderDex = () => {
+const HeaderDex = item => {
+  const dispatch = useDispatch();
+  const {favorite} = useSelector(state => state.favorite);
+  //const [isFavorite, setIsFavorite] = useState(false);
+
+  const addToFavorite = items => {
+    // console.warn(items);
+    // isFavorite
+    //   ? dispatch(favoriteSlice.actions.deleteFavorites(items))
+    //   : dispatch(favoriteSlice.actions.addFavorites(items));
+    // //setIsFavorite(!isFavorite);
+    dispatch(favoriteSlice.actions.addFavorites(items));
+  };
+
+  //const [favorite, setFavorite] = useState([]);
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity
@@ -14,9 +30,15 @@ const HeaderDex = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => {
-          console.warn('Like click');
-        }}>
+        onPress={() => addToFavorite(item)}
+        // onPress={() => {
+        //   console.warn('Like click');
+        //   //setFavorite(item);
+        //   // dispatch(favoriteSlice.actions.setFavorites(item));
+        //   //console.warn(favorite);
+        //   addToFavorite(item);
+        // }}
+      >
         <Image source={Heart} style={styles.image} />
       </TouchableOpacity>
     </View>

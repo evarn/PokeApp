@@ -35,7 +35,7 @@ const PokeProfile = ({item}) => {
 
   return (
     <View style={getColorType(item)} key={item.id}>
-      <HeaderDex />
+      <HeaderDex item={item} />
       <View style={{alignItems: 'center'}}>
         <View style={styles.imgContainer}>
           <Image source={{uri: item.image}} style={styles.image} />
