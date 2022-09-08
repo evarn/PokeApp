@@ -36,7 +36,7 @@ const TabNavigation = () => {
           name={'HomePage'}
           component={HomePage}
           options={{
-            tabBarLabel: 'Poke Deck',
+            tabBarLabel: 'PokeDex',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
                 name="pokeball"

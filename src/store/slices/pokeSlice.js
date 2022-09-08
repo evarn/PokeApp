@@ -30,10 +30,15 @@ export const pokeSlice = createSlice({
       state.nextUrl = action.payload;
       return state;
     },
+    setFavorite(state, action) {
+      state.pokeData[action.payload].isFavorite === true
+        ? (state.pokeData[action.payload].isFavorite = false)
+        : (state.pokeData[action.payload].isFavorite = true);
+    },
   },
 });
 
-export const {fetching, fetchSuccess, fetchError, fetchNextUrl} =
+export const {fetching, fetchSuccess, fetchError, fetchNextUrl, setFavorite} =
   pokeSlice.actions;
 
 export default pokeSlice.reducer;

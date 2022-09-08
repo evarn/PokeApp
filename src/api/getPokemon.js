@@ -28,7 +28,9 @@ export const getPokemonInfo = async (nextUrl = '') => {
   const {results, next} = await getPokemons(nextUrl);
   const details = await Promise.all(
     results.map(async ({url}) => {
-      const pokeDetails = await getPokemonsUrl(url);
+      let pokeDetails = await getPokemonsUrl(url);
+      const isFavorite = {isFavorite: undefined};
+      pokeDetails = {...pokeDetails, ...isFavorite};
       return pokeDetails;
     }),
   );

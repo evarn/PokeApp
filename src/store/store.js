@@ -1,5 +1,5 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
-import compareReducer from './slices/compareSlice';
+import gameReducer from './slices/gameSlice';
 import favoriteReducer from './slices/favoriteSlice';
 import pokeReducer from './slices/pokeSlice';
 
@@ -20,7 +20,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 const rootReducer = combineReducers({
-  compare: compareReducer,
+  game: gameReducer,
   favorite: favoriteReducer,
   poke: pokeReducer,
 });

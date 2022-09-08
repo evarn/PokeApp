@@ -13,6 +13,7 @@ import {useDispatch} from 'react-redux';
 import {fetchPokemons, loadMore} from '../store/actions/pokemonsActions';
 import {useSelector} from 'react-redux';
 import {favoriteSlice} from '../store/slices/favoriteSlice';
+import LoadingPage from './LoadingPage';
 const HomePage = () => {
   // const [pokeDate, setPokeDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,20 +43,27 @@ const HomePage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
-        {/* <Image source={IconPoke} /> */}
-        <Text style={styles.text}>Pokedex</Text>
-      </View>
+      {loading && (
+        <>
+          <LoadingPage />
+        </>
+      )}
+      {!loading && (
+        <>
+          <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
+            {/* <Image source={IconPoke} /> */}
+            <Text style={styles.text}>Pokedex</Text>
+          </View>
 
-      <View>
-        {loading && <Text>loading...</Text>}
-
-        <PokemonFlatList
-          pokemons={pokeData}
-          // loadMore={loadMore()}
-          // isNext={nextUrl}
-        />
-      </View>
+          <View>
+            <PokemonFlatList
+              pokemons={pokeData}
+              // loadMore={loadMore()}
+              // isNext={nextUrl}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
-    margin: 8,
+    margin: 4,
     color: 'black',
   },
   pokeProfile: {

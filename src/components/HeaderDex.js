@@ -1,45 +1,39 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Heart from '../../assets/heart.png';
+import HeartClicked from '../../assets/heart_clicked.png';
+
 import Compare from '../../assets/arrow.png';
-import {useDispatch, useSelector} from 'react-redux';
-import {favoriteSlice} from '../store/slices/favoriteSlice';
+import {useDispatch} from 'react-redux';
+
+import {pokeSlice} from '../store/slices/pokeSlice';
 
 const HeaderDex = item => {
   const dispatch = useDispatch();
-  const {favorite} = useSelector(state => state.favorite);
-  //const [isFavorite, setIsFavorite] = useState(false);
 
-  const addToFavorite = items => {
-    // console.warn(items);
-    // isFavorite
-    //   ? dispatch(favoriteSlice.actions.deleteFavorites(items))
-    //   : dispatch(favoriteSlice.actions.addFavorites(items));
-    // //setIsFavorite(!isFavorite);
-    dispatch(favoriteSlice.actions.addFavorites(items));
+  const addToFavorite = element => {
+    const id = element.item.id - 1;
+    dispatch(pokeSlice.actions.setFavorite(id));
   };
 
-  //const [favorite, setFavorite] = useState([]);
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           console.warn('Compare click');
         }}>
         <Image source={Compare} style={styles.image} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
-      <TouchableOpacity
-        onPress={() => addToFavorite(item)}
-        // onPress={() => {
-        //   console.warn('Like click');
-        //   //setFavorite(item);
-        //   // dispatch(favoriteSlice.actions.setFavorites(item));
-        //   //console.warn(favorite);
-        //   addToFavorite(item);
-        // }}
-      >
-        <Image source={Heart} style={styles.image} />
+      <TouchableOpacity onPress={() => addToFavorite(item)}>
+        <Image
+          source={
+            item.item.isFavorite === false || item.item.isFavorite === undefined
+              ? Heart
+              : HeartClicked
+          }
+          style={styles.image}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -48,8 +42,8 @@ const HeaderDex = item => {
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
+    justifyContent: 'flex-end',
+    marginTop: 3,
     paddingHorizontal: 7,
   },
   image: {

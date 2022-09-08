@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   image: {
     width: 120,
     height: 120,
+    // tintColor: 'black',
   },
   name: {
     color: 'black',

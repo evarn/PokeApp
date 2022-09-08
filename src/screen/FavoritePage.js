@@ -4,23 +4,20 @@ import PokeProfile from '../components/PokeProfile';
 import {useSelector} from 'react-redux';
 import PokemonFlatList from '../components/PokemonFlatList';
 const FavoritePage = () => {
-  const {favorites} = useSelector(state => state.favorite);
   const {pokeData} = useSelector(state => state.poke);
-  let favoritesItem = [];
-  favorites.map((item, i) => {
-    favoritesItem[i] = item.item;
+
+  const favoritesItem = pokeData.filter(element => {
+    return element.isFavorite === true;
   });
-  console.warn(favoritesItem);
-  console.warn(pokeData);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> Favorite Page </Text>
+      <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
+        <Text style={styles.text}> Favorite Page </Text>
+      </View>
+
       <View>
-        <PokemonFlatList
-          pokemons={favoritesItem}
-          // loadMore={loadMore()}
-          // isNext={nextUrl}
-        />
+        <PokemonFlatList pokemons={favoritesItem} />
       </View>
     </View>
   );
@@ -31,6 +28,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
+    margin: 4,
     color: 'black',
   },
   container: {
