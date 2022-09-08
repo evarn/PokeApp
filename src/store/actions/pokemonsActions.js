@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
 import {getPokemons, getPokemonInfo} from '../../api/getPokemon';
-import {pokeSlice} from './../slices/pokeSlice';
+import {pokeSlice} from '../slices/pokeSlice';
 import axios from 'axios';
 
 export const fetchPokemons = () => {
@@ -9,7 +9,7 @@ export const fetchPokemons = () => {
       dispatch(pokeSlice.actions.fetching());
 
       const data = await getPokemonInfo();
-      
+
       dispatch(pokeSlice.actions.fetchSuccess(data[0]));
       dispatch(pokeSlice.actions.fetchNextUrl(data[1]));
     } catch (error) {

@@ -18,7 +18,7 @@ export const getPokemons = async (nextUrl = '', limit = 10, offset = 0) => {
 export const getPokemonsUrl = async url => {
   try {
     const {data} = await axios.get(url);
-    return formatedPokeData(data);
+    return await formatedPokeData(data);
   } catch (e) {
     throw e;
   }

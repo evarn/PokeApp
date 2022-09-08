@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -12,19 +12,36 @@ import {
 } from 'react-native';
 import ImageBg from '../../assets/whos_that_pokemon.png';
 import Game from '../components/Game';
+import {useDispatch, useSelector} from 'react-redux';
+import {gameSlice} from '../store/slices/gameSlice';
+import {loadGameData} from '../store/actions/gameActions';
+
 const ComparePage = () => {
-  
+  const dispatch = useDispatch();
+  const {inGame, container} = useSelector(state => state.game);
+  const onPressStart = () => {
+    dispatch(gameSlice.actions.startGame());
+  };
+
+  useEffect(() => {
+    dispatch(loadGameData());
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.containerHeader}>
         <Text style={styles.text}>Who's that pokemon?</Text>
       </View>
-      <Game />
-      <View style={styles.containerButton}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.btnText}>Start</Text>
-        </TouchableOpacity>
-      </View>
+
+      {inGame ? (
+        <Game />
+      ) : (
+        <View style={styles.containerButton}>
+          <TouchableOpacity style={styles.button} onPress={onPressStart}>
+            <Text style={styles.btnText}>Start</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
