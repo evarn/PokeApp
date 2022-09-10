@@ -15,14 +15,12 @@ import Game from '../components/Game';
 import {useDispatch, useSelector} from 'react-redux';
 import {gameSlice} from '../store/slices/gameSlice';
 import {loadGameData} from '../store/actions/gameActions';
+import {getNamePoke} from '../store/actions/gameActions';
+import LoadingPage from './LoadingPage';
 
 const ComparePage = () => {
   const dispatch = useDispatch();
-  const {inGame, container} = useSelector(state => state.game);
-  const onPressStart = () => {
-    dispatch(gameSlice.actions.startGame());
-  };
-
+  const {loading} = useSelector(state => state.game);
   useEffect(() => {
     dispatch(loadGameData());
   }, []);
@@ -32,16 +30,9 @@ const ComparePage = () => {
       <View style={styles.containerHeader}>
         <Text style={styles.text}>Who's that pokemon?</Text>
       </View>
-
-      {inGame ? (
+      <View>
         <Game />
-      ) : (
-        <View style={styles.containerButton}>
-          <TouchableOpacity style={styles.button} onPress={onPressStart}>
-            <Text style={styles.btnText}>Start</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+      </View>
     </View>
   );
 };

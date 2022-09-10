@@ -3,9 +3,14 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
   inGame: false,
   counter: 0,
+  win: false,
   gameData: [],
+  namePoke: '',
+  idWinPoke: 0,
+  image: '',
   loading: false,
   error: false,
+  winPoke: {},
 };
 
 export const gameSlice = createSlice({
@@ -13,7 +18,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     startGame(state) {
-      state.inGame = true;
+      state.inGame = !state.inGame;
       return state;
     },
     setWinCounter(state) {
@@ -34,10 +39,35 @@ export const gameSlice = createSlice({
       state.error = action.payload;
       return state;
     },
+    setImage(state, action) {
+      state.image = action.payload;
+    },
+    setNamePoke(state, action) {
+      state.namePoke = action.payload;
+    },
+    setIdWinPoke(state, action) {
+      state.idWinPoke = action.payload;
+    },
+    loadImage(state, action) {
+      state.winPoke = action.payload;
+    },
+    setWin(state, action) {
+      state.win = action.payload;
+    },
   },
 });
 
-export const {startGame, setWinCounter, fetching, fetchSuccess, fetchError} =
-  gameSlice.actions;
+export const {
+  startGame,
+  setWinCounter,
+  fetching,
+  fetchSuccess,
+  fetchError,
+  setImage,
+  setNamePoke,
+  setIdWinPoke,
+  loadImage,
+  setWin,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

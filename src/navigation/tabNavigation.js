@@ -22,10 +22,10 @@ const TabNavigation = () => {
           name={'ComparePage'}
           component={ComparePage}
           options={{
-            tabBarLabel: 'Compare',
+            tabBarLabel: 'Game',
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons
-                name="compare-horizontal"
+                name="gamepad-variant-outline"
                 color={color}
                 size={size}
               />

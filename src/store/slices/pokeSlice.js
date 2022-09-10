@@ -4,7 +4,7 @@ const initialState = {
   pokeData: [],
   loading: false,
   error: '',
-  nextUrl: 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0',
+  nextUrl: 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0',
 };
 
 export const pokeSlice = createSlice({
