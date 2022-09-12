@@ -1,14 +1,6 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  Pressable,
-} from 'react-native';
+import React from 'react';
+import {View, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
 
-import {getPokemonsUrl} from '../api/getPokemon';
 import {getDataGame} from '../store/actions/gameActions';
 import LoadingPage from '../screen/LoadingPage';
 import {useDispatch, useSelector} from 'react-redux';
@@ -16,17 +8,12 @@ import {gameSlice} from '../store/slices/gameSlice';
 
 const Game = () => {
   const {gameData, loading} = useSelector(state => state.game);
-  const {inGame, container, namePoke, idWinPoke, image, win} = useSelector(
-    state => state.game,
-  );
+  const {inGame, counterWin, counterLose, namePoke, idWinPoke, image, win} =
+    useSelector(state => state.game);
+
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getDataGame(gameData));
-  }, []);
-
   const getTintColor = () => {
-    const color = inGame ? undefined : 'black';
+    const color = inGame ? 'black' : undefined;
 
     const tintColor = {
       tintColor: color,
@@ -37,36 +24,45 @@ const Game = () => {
 
   return (
     <View>
-      {loading && (
+      {loading ? (
         <>
           <LoadingPage />
         </>
-      )}
-      {!loading && (
+      ) : (
         <>
           <View>
-            <View style={styles.imgContainer}>
-              <Image source={{uri: image}} style={getTintColor()} />
-            </View>
-            {inGame && (
-              <View>
-                <Text style={styles.subText}>{namePoke[idWinPoke[0]]}</Text>
-                {win && <Text style={styles.subText}>WIN</Text>}
-                {!win && <Text style={styles.subText}>LOSE</Text>}
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.imgContainer}>
+                <Image source={{uri: image}} style={getTintColor()} />
               </View>
-            )}
-            {inGame && (
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(gameSlice.actions.startGame());
-                  dispatch(getDataGame(gameData));
-                }}
-                style={styles.button}>
-                <Text style={styles.btnText}>Start</Text>
-              </TouchableOpacity>
-            )}
 
-            {!inGame && (
+              <View style={styles.counters}>
+                <Text>Wins: {counterWin} </Text>
+                <Text>Losses: {counterLose} </Text>
+              </View>
+            </View>
+            {!inGame ? (
+              <View>
+                <View>
+                  <Text style={styles.subText}>{namePoke[idWinPoke[0]]}</Text>
+                  {(counterLose !== 0 || counterWin !== 0) && win && (
+                    <Text style={styles.subText}>WIN</Text>
+                  )}
+                  {(counterLose !== 0 || counterWin !== 0) && !win && (
+                    <Text style={styles.subText}>LOSE</Text>
+                  )}
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch(gameSlice.actions.startGame());
+                    dispatch(getDataGame(gameData));
+                  }}
+                  style={styles.button}>
+                  <Text style={styles.btnText}>GO</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
               <View>
                 {namePoke.map((element, i) => {
                   return (
@@ -76,9 +72,11 @@ const Game = () => {
                           if (i === idWinPoke[0]) {
                             dispatch(gameSlice.actions.startGame());
                             dispatch(gameSlice.actions.setWin(true));
+                            dispatch(gameSlice.actions.setWinCounter());
                           } else {
                             dispatch(gameSlice.actions.startGame());
                             dispatch(gameSlice.actions.setWin(false));
+                            dispatch(gameSlice.actions.setLoseCounter());
                           }
                         }}
                         style={styles.button}>
@@ -96,32 +94,31 @@ const Game = () => {
   );
 };
 const styles = StyleSheet.create({
-  headerContainer: {},
-
-  image: {
-    width: 200,
-    height: 200,
-  },
   imgContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 100,
     margin: 5,
     maxWidth: 180,
     maxHeight: 180,
   },
-  btnText: {
-    textAlign: 'center',
-    fontSize: 18,
-    padding: 0,
-    margin: 4,
-    color: 'white',
-    textTransform: 'capitalize',
+  image: {
+    width: 200,
+    height: 200,
   },
   containerButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  btnText: {
+    textAlign: 'center',
+    fontSize: 16,
+    padding: 0,
+    margin: 4,
+    color: 'white',
+    textTransform: 'capitalize',
   },
   button: {
     alignItems: 'center',
@@ -140,6 +137,9 @@ const styles = StyleSheet.create({
     margin: 4,
     color: '#903E4B',
     textTransform: 'capitalize',
+  },
+  counters: {
+    flexDirection: 'row',
   },
 });
 

@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
-import PokeProfile from '../components/PokeProfile';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import PokemonFlatList from '../components/PokemonFlatList';
 const FavoritePage = () => {
@@ -12,7 +11,7 @@ const FavoritePage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
+      <View style={styles.textContainer}>
         <Text style={styles.text}> Favorite Page </Text>
       </View>
 
@@ -24,6 +23,11 @@ const FavoritePage = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#DDBEC3',
+    flex: 1,
+    alignItems: 'center',
+  },
   text: {
     textAlign: 'center',
     fontSize: 36,
@@ -31,10 +35,10 @@ const styles = StyleSheet.create({
     margin: 4,
     color: 'black',
   },
-  container: {
-    backgroundColor: '#DDBEC3',
-    flex: 1,
-    alignItems: 'center',
+  textContainer: {
+    borderColor: 'black',
+    borderBottomWidth: 2,
+    margin: 3,
   },
 });
 

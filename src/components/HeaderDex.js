@@ -2,15 +2,11 @@ import React from 'react';
 import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Heart from '../../assets/heart.png';
 import HeartClicked from '../../assets/heart_clicked.png';
-
-import Compare from '../../assets/arrow.png';
 import {useDispatch} from 'react-redux';
-
 import {pokeSlice} from '../store/slices/pokeSlice';
 
 const HeaderDex = item => {
   const dispatch = useDispatch();
-
   const addToFavorite = element => {
     const id = element.item.id - 1;
     dispatch(pokeSlice.actions.setFavorite(id));
@@ -18,13 +14,6 @@ const HeaderDex = item => {
 
   return (
     <View style={styles.headerContainer}>
-      {/* <TouchableOpacity
-        onPress={() => {
-          console.warn('Compare click');
-        }}>
-        <Image source={Compare} style={styles.image} />
-      </TouchableOpacity> */}
-
       <TouchableOpacity onPress={() => addToFavorite(item)}>
         <Image
           source={

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const BASE_URL = 'https://pokeapi.co/api/v2';
 
-export const getPokemons = async (nextUrl = '', limit = 20, offset = 0) => {
+export const getPokemons = async (nextUrl = '', limit = 10, offset = 0) => {
   try {
     const url =
       nextUrl || `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;

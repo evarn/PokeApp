@@ -1,38 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import PokemonFlatList from '../components/PokemonFlatList';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from 'react-native';
-import {getPokemonInfo} from '../api/getPokemon';
+import {StyleSheet, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {fetchPokemons, loadMore} from '../store/actions/pokemonsActions';
 import {useSelector} from 'react-redux';
-import {favoriteSlice} from '../store/slices/favoriteSlice';
 import LoadingPage from './LoadingPage';
 const HomePage = () => {
-  // const [pokeDate, setPokeDate] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  // const [nextUrl, setNextUrl] = useState(undefined);
-
-  // const fetchData = async () => {
-  //   try {
-  //     const [results, next] = await getPokemonInfo(nextUrl);
-  //     setPokeDate(prev => [...prev, ...results]);
-  //     setNextUrl(next);
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,22 +16,20 @@ const HomePage = () => {
 
   return (
     <View style={styles.container}>
-      {loading && (
+      {loading ? (
         <>
           <LoadingPage />
         </>
-      )}
-      {!loading && (
+      ) : (
         <>
-          <View style={{borderColor: 'black', borderBottomWidth: 2, margin: 3}}>
-            {/* <Image source={IconPoke} /> */}
+          <View style={styles.textContainer}>
             <Text style={styles.text}>Pokedex</Text>
           </View>
 
           <View>
             <PokemonFlatList
               pokemons={pokeData}
-              // loadMore={loadMore()}
+              // loadMore={dispatch(loadMore(nextUrl))}
               // isNext={nextUrl}
             />
           </View>
@@ -73,13 +44,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-
   text: {
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
     margin: 4,
     color: 'black',
+  },
+  textContainer: {
+    borderColor: 'black',
+    borderBottomWidth: 2,
+    margin: 3,
   },
   pokeProfile: {
     alignItems: 'center',

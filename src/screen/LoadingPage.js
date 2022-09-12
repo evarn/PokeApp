@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 
 const LoadingPage = () => {
   return (
     <View style={styles.container}>
+      <ActivityIndicator size="large" color="black" />
       <Text style={styles.text}>Loading...</Text>
     </View>
   );
@@ -12,7 +13,7 @@ const LoadingPage = () => {
 const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
-    fontSize: 48,
+    fontSize: 24,
     padding: 0,
     color: 'black',
   },

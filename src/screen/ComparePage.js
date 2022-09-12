@@ -21,17 +21,28 @@ import LoadingPage from './LoadingPage';
 const ComparePage = () => {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.game);
+
   useEffect(() => {
     dispatch(loadGameData());
   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerHeader}>
-        <Text style={styles.text}>Who's that pokemon?</Text>
-      </View>
       <View>
-        <Game />
+        {loading ? (
+          <>
+            <LoadingPage />
+          </>
+        ) : (
+          <View>
+            <View style={styles.containerHeader}>
+              <Text style={styles.text}>Who's that pokemon?</Text>
+            </View>
+            <View>
+              <Game />
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );

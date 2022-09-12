@@ -21,13 +21,13 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   game: gameReducer,
-  favorite: favoriteReducer,
   poke: pokeReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  // reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: getDefaultMiddleware => {
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: {
