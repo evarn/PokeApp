@@ -1,43 +1,43 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import PokemonFlatList from '../components/PokemonFlatList';
 import {StyleSheet, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {fetchPokemons, loadMore} from '../store/actions/pokemonsActions';
+import {fetchPokemons} from '../store/actions/pokemonsActions';
 import {useSelector} from 'react-redux';
-import LoadingPage from './LoadingPage';
+
 const HomePage = () => {
   const dispatch = useDispatch();
+  const {pokeData, nextUrl} = useSelector(state => state.poke);
 
   useEffect(() => {
-    dispatch(fetchPokemons());
+    dispatch(fetchPokemons(nextUrl));
   }, []);
 
-  const {loading, pokeData, nextUrl} = useSelector(state => state.poke);
+  const loadMore = () => {
+    dispatch(fetchPokemons(nextUrl));
+  };
 
   return (
     <View style={styles.container}>
-      {loading ? (
-        <>
-          <LoadingPage />
-        </>
-      ) : (
-        <>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>Pokedex</Text>
-          </View>
+      <>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Pokedex</Text>
+        </View>
 
-          <View>
+        <View>
+          <View style={{marginBottom: 65}}>
             <PokemonFlatList
               pokemons={pokeData}
-              // loadMore={dispatch(loadMore(nextUrl))}
-              // isNext={nextUrl}
+              loadMore={loadMore}
+              isNext={nextUrl}
             />
           </View>
-        </>
-      )}
+        </View>
+      </>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DDBEC3',

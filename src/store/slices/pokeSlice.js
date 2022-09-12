@@ -17,8 +17,8 @@ export const pokeSlice = createSlice({
     },
     fetchSuccess(state, action) {
       state.loading = false;
-      state.pokeData = action.payload;
-      // state.pokeData = [...state.pokeData, ...action.payload];
+     // state.pokeData = action.payload;
+      state.pokeData = [...state.pokeData, ...action.payload];
       return state;
     },
     fetchError(state, action) {

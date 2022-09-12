@@ -2,20 +2,20 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import PokemonFlatList from '../components/PokemonFlatList';
+
 const FavoritePage = () => {
   const {pokeData} = useSelector(state => state.poke);
 
   const favoritesItem = pokeData.filter(element => {
     return element.isFavorite === true;
   });
-
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.text}> Favorite Page </Text>
       </View>
 
-      <View>
+      <View style={{marginBottom: 65}}>
         <PokemonFlatList pokemons={favoritesItem} />
       </View>
     </View>

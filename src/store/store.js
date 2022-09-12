@@ -1,6 +1,5 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import gameReducer from './slices/gameSlice';
-import favoriteReducer from './slices/favoriteSlice';
 import pokeReducer from './slices/pokeSlice';
 
 import {

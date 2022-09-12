@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import HomePage from '../screen/HomePage';
 import FavoritePage from '../screen/FavoritePage';
-import ComparePage from '../screen/ComparePage';
+import GamePage from '../screen/GamePage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -19,8 +19,8 @@ const TabNavigation = () => {
           tabBarActiveTintColor: '#DDBEC3',
         })}>
         <Tab.Screen
-          name={'ComparePage'}
-          component={ComparePage}
+          name={'GamePage'}
+          component={GamePage}
           options={{
             tabBarLabel: 'Game',
             tabBarIcon: ({color, size}) => (

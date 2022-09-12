@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  FlatList,
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  Image,
-} from 'react-native';
+import {FlatList, View, ActivityIndicator, StyleSheet} from 'react-native';
 import PokeProfile from './PokeProfile';
-import {useDispatch} from 'react-redux';
 
 const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
-  const dispatch = useDispatch;
-
   return (
     <View>
       <FlatList
@@ -23,18 +13,12 @@ const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
           return item.id;
         }}
         numColumns={2}
-        onEndReached={loadMore}
+        onEndReached={isNext ? loadMore : null}
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
-        // ListFooterComponent={
-        //   isNext ? (
-        //     <ActivityIndicator
-        //       //style={styles.spinner}
-        //       size="large"
-        //       color="#AEAEAE"
-        //     />
-        //   ) : null
-        // }
+        ListFooterComponent={
+          isNext ? <ActivityIndicator size="large" color="black" /> : null
+        }
       />
     </View>
   );

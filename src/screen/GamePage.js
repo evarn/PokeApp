@@ -1,24 +1,11 @@
 import React, {useEffect} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
-import ImageBg from '../../assets/whos_that_pokemon.png';
+import {StyleSheet, Text, View} from 'react-native';
 import Game from '../components/Game';
 import {useDispatch, useSelector} from 'react-redux';
-import {gameSlice} from '../store/slices/gameSlice';
 import {loadGameData} from '../store/actions/gameActions';
-import {getNamePoke} from '../store/actions/gameActions';
 import LoadingPage from './LoadingPage';
 
-const ComparePage = () => {
+const GamePage = () => {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.game);
 
@@ -89,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ComparePage;
+export default GamePage;
