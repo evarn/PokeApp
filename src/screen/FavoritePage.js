@@ -1,20 +1,44 @@
-import React, {useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
+import PokemonFlatList from '../components/PokemonFlatList';
 
 const FavoritePage = () => {
+  const {pokeData} = useSelector(state => state.poke);
+
+  const favoritesItem = pokeData.filter(element => {
+    return element.isFavorite === true;
+  });
   return (
-    <View>
-      <Text style={styles.Text}> Favorite Page </Text>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}> Favorite Page </Text>
+      </View>
+
+      <View style={{marginBottom: 65}}>
+        <PokemonFlatList pokemons={favoritesItem} />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  Text: {
+  container: {
+    backgroundColor: '#DDBEC3',
+    flex: 1,
+    alignItems: 'center',
+  },
+  text: {
     textAlign: 'center',
     fontSize: 36,
     padding: 0,
+    margin: 4,
     color: 'black',
+  },
+  textContainer: {
+    borderColor: 'black',
+    borderBottomWidth: 2,
+    margin: 3,
   },
 });
 

@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  FlatList,
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  Image,
-} from 'react-native';
-import PokemonCard from './PokemonCard';
+import {FlatList, View, ActivityIndicator, StyleSheet} from 'react-native';
 import PokeProfile from './PokeProfile';
+
 const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
   return (
     <View>
@@ -23,15 +16,9 @@ const PokemonFlatList = ({pokemons, loadMore, isNext}) => {
         onEndReached={isNext ? loadMore : null}
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
-        // ListFooterComponent={
-        //   isNext ? (
-        //     <ActivityIndicator
-        //       style={styles.spinner}
-        //       size="large"
-        //       color="#AEAEAE"
-        //     />
-        //   ) : null
-        // }
+        ListFooterComponent={
+          isNext ? <ActivityIndicator size="large" color="black" /> : null
+        }
       />
     </View>
   );

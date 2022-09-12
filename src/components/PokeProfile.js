@@ -2,10 +2,6 @@ import React from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
 import HeaderDex from './HeaderDex';
 import StatsPoke from './StatsPoke';
-import HP from '../../assets/health-normal.png';
-import Damage from '../../assets/damage.png';
-import Shield from '../../assets/shield.png';
-import Speed from '../../assets/sprint.png';
 
 const typeColor = {
   normal: '#A8A77A',
@@ -39,17 +35,15 @@ const PokeProfile = ({item}) => {
 
   return (
     <View style={getColorType(item)} key={item.id}>
-      <HeaderDex />
-      <View style={{alignItems: 'center'}}>
+      <HeaderDex item={item} />
+      <View style={styles.headContainer}>
         <View style={styles.imgContainer}>
           <Image source={{uri: item.image}} style={styles.image} />
         </View>
 
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{item.name}</Text>
-          <Text style={{color: 'black', fontSize: 14}}>
-            #{item.id.toString().padStart(3, '0')}
-          </Text>
+          <Text style={styles.id}>#{item.id.toString().padStart(3, '0')}</Text>
         </View>
       </View>
 
@@ -68,26 +62,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
   },
-  image: {
-    width: 120,
-    height: 120,
-  },
-  name: {
-    color: 'black',
-    fontSize: 18,
-    textTransform: 'capitalize',
-  },
-  type: {
-    paddingHorizontal: 10,
-    color: 'black',
-  },
-  like: {
-    paddingHorizontal: 10,
-    color: 'black',
-  },
-  nameContainer: {
+  headContainer: {
     alignItems: 'center',
-    marginBottom: 3,
   },
   imgContainer: {
     alignItems: 'center',
@@ -97,28 +73,22 @@ const styles = StyleSheet.create({
     maxWidth: 120,
     maxHeight: 120,
   },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 3,
-    marginBottom: 5,
+  image: {
+    width: 120,
+    height: 120,
   },
-  stats: {
-    paddingHorizontal: 5,
-    margin: 1,
+  nameContainer: {
+    alignItems: 'center',
+    marginBottom: 3,
+  },
+  name: {
+    color: 'black',
+    fontSize: 18,
+    textTransform: 'capitalize',
+  },
+  id: {
     color: 'black',
     fontSize: 14,
-    textAlign: 'center',
-  },
-  statContainer: {
-    alignItems: 'center',
-  },
-  imgStats: {
-    paddingHorizontal: 5,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    margin: 1,
   },
   line: {
     height: 3,
