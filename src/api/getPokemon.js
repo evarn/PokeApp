@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const BASE_URL = 'https://pokeapi.co/api/v2';
 
+// Запрос на получение массива имён покемонов и следующего url
 export const getPokemons = async (nextUrl = '', limit = 10, offset = 0) => {
   try {
     const url =
@@ -15,6 +16,7 @@ export const getPokemons = async (nextUrl = '', limit = 10, offset = 0) => {
   }
 };
 
+// Запрос на получение данных покемона
 export const getPokemonsUrl = async url => {
   try {
     const {data} = await axios.get(url);
@@ -24,6 +26,7 @@ export const getPokemonsUrl = async url => {
   }
 };
 
+// Запрос на получение массива отформатированных данных
 export const getPokemonInfo = async (nextUrl = '') => {
   const {results, next} = await getPokemons(nextUrl);
   const details = await Promise.all(
@@ -37,6 +40,7 @@ export const getPokemonInfo = async (nextUrl = '') => {
   return [details, next];
 };
 
+// Форматирование данных, полученных из запроса
 const formatedPokeData = pokeDetails => {
   const id = pokeDetails.id;
   const name = pokeDetails.name;
